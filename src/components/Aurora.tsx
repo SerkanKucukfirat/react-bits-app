@@ -507,7 +507,7 @@ const Aurora = ({
       gl.deleteProgram(program.program);
       gl.deleteBuffer(buffer);
       gl.deleteVertexArray(vao);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      // No loseContext() here: StrictMode remounts reuse the same canvas, and a lost context can't be recovered
     };
   }, []);
 
