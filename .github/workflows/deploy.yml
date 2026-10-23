@@ -24,9 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run build
-        env:
-          BASE_PATH: /react-bits-app/
+      # Özel alan adı (public/CNAME) varsa site kökten, yoksa /react-bits-app/ altından yayınlanır.
+      - run: |
+          if [ -f public/CNAME ]; then export BASE_PATH=/; else export BASE_PATH=/react-bits-app/; fi
+          npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
