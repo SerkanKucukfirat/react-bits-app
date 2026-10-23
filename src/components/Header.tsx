@@ -2,17 +2,17 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 
 import GooeyNav from '@/components/GooeyNav'
-import GradientText from '@/components/GradientText'
 import StarBorder from '@/components/StarBorder'
+import { LOGO, WHATSAPP } from '@/data'
 
 const navItems = [
+  { label: 'Cihazlar', href: '#cihazlar' },
+  { label: 'Markalar', href: '#markalar' },
   { label: 'Hakkımızda', href: '#hakkimizda' },
-  { label: 'Ürünler', href: '#urunler' },
-  { label: 'Neden Slimwell', href: '#neden' },
   { label: 'İletişim', href: '#iletisim' },
 ]
 
-const brandColors = ['#2dd4bf', '#a78bfa', '#f472b6', '#2dd4bf']
+const brandColors = ['#7DD3FC', '#C084FC', '#F472B6', '#2DD4BF']
 
 function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -38,22 +38,24 @@ function Header() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -90, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? 'border-b border-white/10 bg-neutral-950/70 backdrop-blur-md' : 'bg-transparent'
+        scrolled ? 'border-b border-white/10 bg-neutral-950/70 backdrop-blur-xl' : 'bg-transparent'
       }`}
     >
       <nav
-        className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-500 sm:px-6 ${
-          scrolled ? 'py-2' : 'py-5'
+        className={`mx-auto flex max-w-7xl items-center justify-between px-4 transition-all duration-500 sm:px-6 ${
+          scrolled ? 'py-1' : 'py-3'
         }`}
       >
-        <a href="#" className="text-2xl font-bold tracking-tight drop-shadow-[0_1px_10px_rgba(0,0,0,0.8)]">
-          <GradientText colors={brandColors} animationSpeed={6}>
-            Slimwell
-          </GradientText>
+        <a href="#" aria-label="Slimwell Group ana sayfa" className="shrink-0">
+          <img
+            src={LOGO}
+            alt="Slimwell Group"
+            className={`w-auto brightness-0 invert transition-all duration-500 ${scrolled ? 'h-12' : 'h-16'}`}
+          />
         </a>
 
         <div className="hidden md:block">
@@ -61,8 +63,8 @@ function Header() {
         </div>
 
         <div className="hidden md:block">
-          <StarBorder as="a" href="#iletisim" color="#2dd4bf" className="text-sm">
-            Bayimiz olun
+          <StarBorder as="a" href={WHATSAPP} target="_blank" rel="noreferrer" color="#7DD3FC" className="text-sm">
+            Bilgi al
           </StarBorder>
         </div>
 
@@ -91,9 +93,9 @@ function Header() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="overflow-hidden border-t border-white/10 bg-neutral-950/95 px-4 backdrop-blur-md md:hidden"
+            className="overflow-hidden border-t border-white/10 bg-neutral-950/95 px-4 backdrop-blur-xl md:hidden"
           >
-            {navItems.map((item, i) => (
+            {[...navItems, { label: 'Bilgi al (WhatsApp)', href: WHATSAPP }].map((item, i) => (
               <motion.li
                 key={item.href}
                 initial={{ x: -20, opacity: 0 }}
