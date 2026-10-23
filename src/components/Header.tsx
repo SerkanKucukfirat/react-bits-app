@@ -1,36 +1,42 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import GooeyNav from '@/components/GooeyNav'
 import StarBorder from '@/components/StarBorder'
 import { LOGO, WHATSAPP } from '@/data'
+import { to } from '@/lib/paths'
 
 const navItems = [
-  { label: 'Cihazlar', href: '#cihazlar' },
-  { label: 'Markalar', href: '#markalar' },
-  { label: 'Hakkımızda', href: '#hakkimizda' },
-  { label: 'İletişim', href: '#iletisim' },
+  { label: 'Cihazlar', href: to('cihazlar'), match: ['/cihazlar'] },
+  { label: 'Markalar', href: to('#markalar'), match: [] },
+  {
+    label: 'Kurumsal',
+    href: to('hakkimizda'),
+    match: ['/hakkimizda', '/is-ortaklarimiz', '/fuarlarimiz', '/sertifika-ve-belgelerimiz', '/sik-sorulan-sorular', '/gizlilik-politikamiz'],
+  },
+  { label: 'Blog', href: to('blog'), match: ['/blog'] },
+  { label: 'İletişim', href: to('iletisim'), match: ['/iletisim'] },
 ]
+
+const activeFor = (pathname: string, hash: string) => {
+  if (pathname === '/' && hash === '#markalar') return 1
+  return navItems.findIndex(item => item.match.some(m => pathname.startsWith(m)))
+}
 
 const brandColors = ['#7DD3FC', '#C084FC', '#F472B6', '#2DD4BF']
 
 function Header() {
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const { pathname, hash } = useLocation()
+  // The menu stays open only on the page it was opened on, so navigating closes it
+  const [menuOpenedOn, setMenuOpenedOn] = useState<string | null>(null)
+  const menuOpen = menuOpenedOn === pathname
+  const setMenuOpen = (open: boolean) => setMenuOpenedOn(open ? pathname : null)
+  const activeIndex = activeFor(pathname, hash)
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 24)
-      // The last section whose top has passed the middle of the screen is the active one
-      const middle = window.innerHeight / 2
-      let current = 0
-      navItems.forEach((item, i) => {
-        const section = document.querySelector(item.href)
-        if (section && section.getBoundingClientRect().top < middle) current = i
-      })
-      setActiveIndex(current)
-    }
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -50,7 +56,7 @@ function Header() {
           scrolled ? 'py-1' : 'py-3'
         }`}
       >
-        <a href="#" aria-label="Slimwell Group ana sayfa" className="shrink-0">
+        <a href={to('')} aria-label="Slimwell Group ana sayfa" className="shrink-0">
           <img
             src={LOGO}
             alt="Slimwell Group"
@@ -59,7 +65,7 @@ function Header() {
         </a>
 
         <div className="hidden md:block">
-          <GooeyNav items={navItems} activeIndex={activeIndex} onChange={setActiveIndex} colors={brandColors} size="sm" />
+          <GooeyNav items={navItems} activeIndex={Math.max(activeIndex, 0)} colors={brandColors} size="sm" />
         </div>
 
         <div className="hidden md:block">
@@ -72,7 +78,7 @@ function Header() {
           type="button"
           aria-label={menuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(open => !open)}
+          onClick={() => setMenuOpen(!menuOpen)}
           className="relative flex h-10 w-10 items-center justify-center md:hidden"
         >
           <motion.span

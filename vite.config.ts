@@ -5,8 +5,8 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Relative asset paths so the build works under /react-bits-app/ on GitHub Pages
-  base: './',
+  // GitHub Pages serves the site under /react-bits-app/; a custom domain would use '/'
+  base: process.env.BASE_PATH ?? '/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
