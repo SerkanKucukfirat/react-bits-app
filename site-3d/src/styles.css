@@ -626,13 +626,12 @@ h2 {
   left: 50%;
   bottom: 14%;
   width: clamp(200px, 30vw, 420px);
+  height: clamp(200px, 30vw, 420px);
   margin-left: calc(clamp(200px, 30vw, 420px) / -2);
-  aspect-ratio: 1;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   transform-origin: 50% 100%;
-  mix-blend-mode: multiply;
   will-change: transform, opacity;
 }
 .device img {
@@ -643,7 +642,8 @@ h2 {
   width: auto;
   object-fit: contain;
   pointer-events: none;
-  -webkit-box-reflect: below -2px linear-gradient(transparent 70%, rgba(255, 255, 255, 0.22));
+  -webkit-box-reflect: below -2px linear-gradient(transparent 72%, rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 18px 18px rgba(11, 13, 20, 0.14));
 }
 .tt-arrow {
   position: absolute;
@@ -1023,6 +1023,7 @@ h2 {
   }
   .device {
     width: 58vw;
+    height: 58vw;
     margin-left: -29vw;
   }
   .tt-arrow {

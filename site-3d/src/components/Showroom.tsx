@@ -148,7 +148,7 @@ export default function Showroom() {
             }}
             onClick={() => snapTo(i)}
           >
-            <img src={dev.image} alt={dev.name} draggable={false} loading="lazy" />
+            <img src={dev.cutout} alt={dev.name} draggable={false} decoding="async" />
           </div>
         ))}
         <button className="tt-arrow left" aria-label="Önceki cihaz" onClick={() => snapTo((active - 1 + N) % N)}>

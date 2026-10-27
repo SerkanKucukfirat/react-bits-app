@@ -93,6 +93,8 @@ export const showroom = [
 ]
   .map(slug => devices.find(d => d.slug === slug))
   .filter((d): d is Device => Boolean(d))
+  // transparent cut-outs, so no blend tricks are needed (they fail in Safari)
+  .map(d => ({ ...d, cutout: `${CLASSIC}devices/3d/${d.slug}.webp` }))
 
 export const technologies = [
   { code: 'IR', title: 'Infrared ısı', text: 'Derin dokuya ulaşan kızılötesi ısı ile egzersizin etkisini artırır.' },
