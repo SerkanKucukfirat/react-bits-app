@@ -273,8 +273,8 @@ h2 {
 .hero-word {
   display: block;
   overflow: hidden;
-  padding: 0.14em 0 0.06em;
-  margin-top: -0.14em;
+  padding: 0.14em 0 0.26em;
+  margin: -0.14em 0 -0.2em;
 }
 .hero-word > span {
   display: inline-block;
@@ -1285,8 +1285,9 @@ html.menu-open {
 .ph-word {
   display: inline-block;
   overflow: hidden;
-  padding: 0.12em 0.04em 0.06em 0;
-  margin: -0.12em 0.22em 0 0;
+  /* room above for İ's dot and below for ş, ç, ğ, y so the reveal mask doesn't clip them */
+  padding: 0.14em 0.06em 0.26em 0;
+  margin: -0.14em 0.2em -0.26em 0;
   vertical-align: top;
 }
 .ph-word > span {
