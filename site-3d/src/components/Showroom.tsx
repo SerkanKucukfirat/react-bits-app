@@ -69,6 +69,7 @@ export default function Showroom() {
     raf = requestAnimationFrame(tick)
 
     const down = (e: PointerEvent) => {
+      if ((e.target as HTMLElement).closest('button')) return // let the arrow buttons click
       st.dragging = true
       st.lastX = e.clientX
       st.idle = 0

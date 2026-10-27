@@ -1,5 +1,7 @@
 // Content taken from the live site, https://www.slimwell.com.tr
 const UPLOADS = 'https://www.slimwell.com.tr/wp-content/uploads/'
+// Device photos supplied by Slimwell, served from this site's public/devices (the 3D site lives in /3d/)
+const LOCAL_DEVICES = import.meta.env.BASE_URL.replace(/3d\/$/, '') + 'devices/'
 
 export const LOGO = `${UPLOADS}2023/10/slimwell-logo.png`
 export const WHATSAPP = 'https://wa.me/905300301283?text=Merhaba%20bilgi%20almak%20istiyorum'
@@ -75,7 +77,7 @@ const deviceInputs: DeviceInput[] = [
     slug: 'infra-step',
     name: 'Infra Step',
     categorySlug: 'merdiven',
-    image: '2026/10/infra.jpg',
+    image: 'local:infra-step.jpg',
     description: [
       'Infra Step, merdiven tırmanma egzersizlerini modern teknoloji ve konforla bir araya getiren yenilikçi bir fitness ve wellness cihazıdır. Kullanıcının kendi enerjisiyle çalışan yapısı sayesinde düşük enerji tüketimi sunarken, kompakt tasarımıyla profesyonel kullanım alanlarına uyum sağlar.',
       'Cihaz; IR infrared (ısı), ozon ve kolajen uygulamaları ile egzersiz deneyimini destekler. Bölgesel uygulamaya olanak sağlayan Infra Step; wellness merkezleri, spor salonları, güzellik merkezleri ve sağlık odaklı işletmeler için profesyonel kullanıma yönelik bir çözüm sunar.',
@@ -111,7 +113,7 @@ const deviceInputs: DeviceInput[] = [
     slug: 'vacuactiv',
     name: 'Vacuactiv',
     categorySlug: 'vakumlu-yurume-ve-kosma-bantlari',
-    image: '2023/11/vacuactiv.jpg',
+    image: 'local:vacuactiv.jpg',
     description: [
       'Vacuactiv, zayıflama ve incelme alanında devrim niteliğinde bir cihazdır. Avrupa Birliği’nde üretilen bu yenilikçi teknoloji, düşük atmosferik basınç ortamında vakum ve kızılötesi ışınları kullanarak, maksimum kalori yakımını sağlar.',
       'Negatif vakum direnci ve kızılötesi ısıtma ile birleşen Vacuactiv, fiziksel aktivite sağlayan, bu sayede kilo verme, incelme, vücuttaki fazla suyu atma, kas gelişimi ve kuvvetlenmesi gibi etkileri ile kendini kanıtlamış yenilikçi ve yüksek teknoloji içeren bir cihazdır. Spor salonuna gitmeye vakti olmayanlar veya hedeflerine ulaşmakta zorlananlar için idealdir.',
@@ -131,7 +133,7 @@ const deviceInputs: DeviceInput[] = [
     slug: 'rollshape',
     name: 'Rollshape',
     categorySlug: 'roll-serisi',
-    image: '2023/11/rollshape.jpg',
+    image: 'local:rollshape.jpg',
     description: [ROLL('Rollshape')],
     features: ['Dokunmatik ekran', COLOR_CABIN, 'Organik ahşap rollar', 'IR infrared (ısı)', 'Hava iyonizasyonu'],
   },
@@ -169,7 +171,7 @@ const deviceInputs: DeviceInput[] = [
     slug: 'infrashape',
     name: 'Infrashape',
     categorySlug: 'yatay-bisikletler',
-    image: '2023/11/infrashapre.png',
+    image: 'local:infrashape.jpg',
     description: [HORIZONTAL_BIKE('Infrashape')],
     features: ['Dokunmatik ekran', COLOR_CABIN, 'Aroma teknolojisi', 'Vakum', 'IR infrared (ısı)', 'Renk teknolojisi', 'Hava iyonizasyonu'],
   },
@@ -220,7 +222,7 @@ const deviceInputs: DeviceInput[] = [
 
 export const devices: Device[] = deviceInputs.map(d => ({
   ...d,
-  image: UPLOADS + d.image,
+  image: d.image.startsWith('local:') ? LOCAL_DEVICES + d.image.slice(6) : UPLOADS + d.image,
   category: categories.find(c => c.slug === d.categorySlug)!.name,
 }))
 
