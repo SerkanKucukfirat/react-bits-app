@@ -85,12 +85,10 @@ export const showroom = [
   'rollshape',
   'infrashape',
   'vacuactiv',
-  'bodyshape',
   'hydroshape',
   'rollbeautyline',
   'aquaslimmer',
   'activshape',
-  'beautyline',
   'emfit-plus-neo',
 ]
   .map(slug => devices.find(d => d.slug === slug))
