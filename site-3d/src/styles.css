@@ -637,6 +637,9 @@ h2 {
 }
 .device img {
   max-height: 100%;
+  /* wide devices (Rollshape, Infrashape) may spill past the square so they read as large as tall ones */
+  max-width: 155%;
+  flex-shrink: 0;
   width: auto;
   object-fit: contain;
   pointer-events: none;

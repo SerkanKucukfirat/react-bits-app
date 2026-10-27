@@ -34,7 +34,7 @@ export default function Showroom() {
       const dt = Math.min((now - last) / 1000, 0.05)
       last = now
       const w = el.clientWidth
-      const R = Math.min(w * 0.42, 620)
+      const R = Math.min(w * 0.5, 760)
       if (!st.dragging) {
         st.idle += dt
         if (st.idle > 4.5) {
