@@ -10,19 +10,37 @@ export const CLASSIC = import.meta.env.BASE_URL.replace(/3d\/$/, '')
 export const devicePage = (d: Device) => `${CLASSIC}cihazlar/${d.slug}`
 
 // The large banners from the slimwell.com.tr homepage sliders
-export type Slide = { image: string; eyebrow: string; title: string; text: string; tone: string }
+export type Slide = { image: string; eyebrow: string; title: string; tab: string; text: string; tone: string }
 export const slides: Slide[] = [
   {
-    image: `${UPLOADS}2026/10/cryo.jpg`,
+    image: `${UPLOADS}2026/10/Cryo.png`,
     eyebrow: 'Yeni · Cryo',
     title: 'Cryo Q One',
+    tab: 'Cryo Q One',
     text: '−110°C’ye varan kontrollü soğuk deneyimi.',
     tone: '#9fd8ff',
+  },
+  {
+    image: `${UPLOADS}2026/09/slider-1.png`,
+    eyebrow: 'Diyetisyenlerin tercihi',
+    title: 'Infra Step · Rollshape · Infrashape · Vacu Activ',
+    tab: 'Cihaz ailesi',
+    text: 'Zayıflama ve incelmede yeni nesil cihaz ailesi.',
+    tone: '#dfe6f0',
+  },
+  {
+    image: `${UPLOADS}2026/08/1100x619.jpg.jpeg`,
+    eyebrow: '17–20 Aralık · Gloria Verde Resort',
+    title: 'Yıldızlar Kongresi 2026',
+    tab: 'Yıldızlar Kongresi',
+    text: 'Slimwell Group 3. yıl buluşması.',
+    tone: '#e7c9a3',
   },
   {
     image: brands[1].image,
     eyebrow: 'Dermokozmetik',
     title: 'Casmara',
+    tab: 'Casmara',
     text: 'Profesyonel yüz bakımında İspanyol uzmanlığı.',
     tone: '#e9cfb4',
   },
@@ -30,6 +48,7 @@ export const slides: Slide[] = [
     image: brands[2].image,
     eyebrow: 'Manyetik infüzyon',
     title: 'WishPro',
+    tab: 'WishPro',
     text: 'Bilimin gücünü cildinizde hissedin.',
     tone: '#6fb6ff',
   },
@@ -37,6 +56,7 @@ export const slides: Slide[] = [
     image: brands[3].image,
     eyebrow: 'Vücut bakımı',
     title: 'Protocol Stria',
+    tab: 'Protocol Stria',
     text: '“Çatlakta Devrim” mottosuyla yeni standart.',
     tone: '#7fcf9f',
   },
@@ -44,6 +64,7 @@ export const slides: Slide[] = [
     image: brands[4].image,
     eyebrow: 'Anti-aging',
     title: 'Ericson Laboratoire',
+    tab: 'Ericson',
     text: 'Supreme 4D ile Paris’ten ileri bakım.',
     tone: '#ff7a7a',
   },
@@ -51,6 +72,7 @@ export const slides: Slide[] = [
     image: brands[0].image,
     eyebrow: 'Kore cam cilt',
     title: 'Playskin',
+    tab: 'Playskin',
     text: 'Lipozom teknolojisiyle Kore cam cilt protokolü.',
     tone: '#f5b8c8',
   },

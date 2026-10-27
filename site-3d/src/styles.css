@@ -194,7 +194,7 @@ h2 {
 .nav-logo img {
   height: 44px;
   width: auto;
-  filter: invert(1) brightness(1.6);
+  filter: grayscale(1) invert(1) brightness(1.8) contrast(1.2);
 }
 .nav-links {
   display: flex;
@@ -285,8 +285,9 @@ h2 {
   -webkit-text-stroke: 1px rgba(217, 239, 255, 0.85);
 }
 .hero-sub {
+  align-self: start;
   max-width: 330px;
-  margin: 0 0 0.6em;
+  margin: 0.4em 0 0;
   color: var(--muted);
   font-size: 15px;
   text-wrap: pretty;
@@ -370,10 +371,10 @@ h2 {
 }
 @keyframes kenburns {
   from {
-    transform: scale(1.14);
+    transform: scale(1.07);
   }
   to {
-    transform: scale(1.02);
+    transform: scale(1);
   }
 }
 .screen-sheen {
@@ -464,8 +465,8 @@ h2 {
 }
 .slide-tabs {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 12px;
   width: min(92vw, 1100px);
   margin-top: clamp(18px, 3vh, 30px);
 }
@@ -958,7 +959,7 @@ h2 {
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
   .slide-tabs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;

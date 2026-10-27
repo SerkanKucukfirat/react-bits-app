@@ -39,7 +39,7 @@ export default function Hero() {
       const scrub = { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: 0.6 }
       gsap.fromTo(
         unfold.current,
-        { rotateX: mobile ? 14 : 26, scale: mobile ? 0.92 : 0.62 },
+        { rotateX: mobile ? 14 : 26, scale: mobile ? 0.92 : 0.56 },
         { rotateX: 0, scale: 1, ease: 'none', scrollTrigger: scrub },
       )
       if (!mobile) gsap.fromTo(stageRef.current, { y: 28 }, { y: 0, ease: 'none', scrollTrigger: { ...scrub } })
@@ -142,7 +142,7 @@ export default function Hero() {
                   />
                 </span>
                 <span className="tab-label">
-                  <em>{String(i + 1).padStart(2, '0')}</em> {sl.title}
+                  <em>{String(i + 1).padStart(2, '0')}</em> {sl.tab}
                 </span>
               </button>
             ))}
