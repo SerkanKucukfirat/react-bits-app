@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build && cp dist/index.html dist/404.html && npm run build:3d",
     "lint": "oxlint",
     "preview": "vite preview",
-    "build:3d": "tsc --noEmit -p site-3d && vite build --config site-3d/vite.config.ts",
+    "build:3d": "tsc --noEmit -p site-3d && vite build --config site-3d/vite.config.ts && node scripts/prerender-3d.mjs",
     "dev:3d": "vite --config site-3d/vite.config.ts"
   },
   "dependencies": {

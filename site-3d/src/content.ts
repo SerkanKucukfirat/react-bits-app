@@ -1,13 +1,36 @@
 import { brands, categories, devices, type Device } from '@shared/data'
 
 export { brands, devices, categories, type Device }
-export { ABOUT_TEXT, ADDRESS, EMAIL, LOGO, PHONE, PHONE_HREF, SERVICE_URL, WHATSAPP, stats } from '@shared/data'
+export {
+  ABOUT_PAGE,
+  ABOUT_TEXT,
+  ADDRESS,
+  BUILDING_IMAGE,
+  CERTIFICATES_IMAGE,
+  CERTIFICATE_STRIP,
+  EMAIL,
+  FACEBOOK_URL,
+  ISO_LOGO,
+  LOGO,
+  MAP_EMBED,
+  PARTNERS_VIDEO,
+  PHONE,
+  PHONE_HREF,
+  SERVICE_URL,
+  WHATSAPP,
+  blogPosts,
+  bySlug,
+  fairs,
+  faqs,
+  privacySections,
+  stats,
+} from '@shared/data'
 
 const UPLOADS = 'https://www.slimwell.com.tr/wp-content/uploads/'
 
 // The classic site sits one level up from /3d/
 export const CLASSIC = import.meta.env.BASE_URL.replace(/3d\/$/, '')
-export const devicePage = (d: Device) => `${CLASSIC}cihazlar/${d.slug}`
+export const devicePage = (d: Device) => `/cihazlar/${d.slug}`
 
 // The large banners from the slimwell.com.tr homepage sliders
 export type Slide = { image: string; eyebrow: string; title: string; tab: string; text: string; tone: string }
@@ -78,6 +101,20 @@ export const slides: Slide[] = [
   },
 ]
 
+// Devices that have a transparent cut-out in public/devices/3d
+const CUTOUTS = new Set(['cryo-q-one', 'infra-step', 'rollshape', 'infrashape', 'vacuactiv', 'hydroshape', 'rollbeautyline', 'aquaslimmer', 'activshape', 'emfit-plus-neo'])
+export const cutoutOf = (d: Device) => (CUTOUTS.has(d.slug) ? `${CLASSIC}devices/3d/${d.slug}.webp` : undefined)
+
+export const corporatePages = [
+  { to: '/hakkimizda', label: 'Hakkımızda' },
+  { to: '/is-ortaklarimiz', label: 'İş Ortaklarımız' },
+  { to: '/fuarlarimiz', label: 'Fuarlarımız' },
+  { to: '/sertifika-ve-belgelerimiz', label: 'Sertifika ve Belgelerimiz' },
+  { to: '/sik-sorulan-sorular', label: 'Sık Sorulan Sorular' },
+  { to: '/gizlilik-politikamiz', label: 'Gizlilik Politikamız' },
+  { to: '/blog', label: 'Blog' },
+]
+
 // Devices shown in the 3D showroom (product shots on white)
 export const showroom = [
   'cryo-q-one',
@@ -94,7 +131,7 @@ export const showroom = [
   .map(slug => devices.find(d => d.slug === slug))
   .filter((d): d is Device => Boolean(d))
   // transparent cut-outs, so no blend tricks are needed (they fail in Safari)
-  .map(d => ({ ...d, cutout: `${CLASSIC}devices/3d/${d.slug}.webp` }))
+  .map(d => ({ ...d, cutout: cutoutOf(d)! }))
 
 export const technologies = [
   { code: 'IR', title: 'Infrared ısı', text: 'Derin dokuya ulaşan kızılötesi ısı ile egzersizin etkisini artırır.' },

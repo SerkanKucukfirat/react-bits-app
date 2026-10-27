@@ -1,4 +1,5 @@
 import { useEffect, useRef, type PointerEvent as RPointerEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -7,6 +8,8 @@ import {
   CLASSIC,
   EMAIL,
   LOGO,
+  categories,
+  corporatePages,
   PHONE,
   PHONE_HREF,
   SERVICE_URL,
@@ -20,38 +23,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 const YEAR = new Date().getFullYear()
 
-export function Nav() {
-  const ref = useRef<HTMLElement>(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const st = ScrollTrigger.create({
-      start: 80,
-      onUpdate: self => {
-        el.classList.toggle('is-scrolled', self.scroll() > 80)
-        el.classList.toggle('is-hidden', self.direction === 1 && self.scroll() > 600)
-      },
-    })
-    return () => st.kill()
-  }, [])
-  return (
-    <header ref={ref} className="nav">
-      <a href="#top" className="nav-logo" aria-label="Slimwell Group">
-        <img src={LOGO} alt="Slimwell Group" />
-      </a>
-      <nav className="nav-links">
-        <a href="#showroom">Cihazlar</a>
-        <a href="#teknoloji">Teknoloji</a>
-        <a href="#markalar">Markalar</a>
-        <a href={`${CLASSIC}hakkimizda`}>Kurumsal</a>
-      </nav>
-      <a className="btn glass" href={WHATSAPP} target="_blank" rel="noreferrer">
-        Bilgi al <span>↗</span>
-      </a>
-    </header>
-  )
-}
-
 export function Manifesto() {
   const ref = useRef<HTMLParagraphElement>(null)
   useEffect(() => {
@@ -62,7 +33,17 @@ export function Manifesto() {
       gsap.fromTo(
         words,
         { opacity: 0.12 },
-        { opacity: 1, stagger: 0.05, ease: 'none', scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 45%', scrub: true } },
+        {
+          opacity: 1,
+          stagger: 0.05,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 80%',
+            end: 'bottom 45%',
+            scrub: true,
+          },
+        },
       )
     })
     return () => ctx.revert()
@@ -108,7 +89,14 @@ export function Technology() {
         gsap.to(el, {
           x: () => -dist(),
           ease: 'none',
-          scrollTrigger: { trigger: section.current, start: 'top top', end: () => `+=${dist()}`, scrub: 0.6, pin: true, invalidateOnRefresh: true },
+          scrollTrigger: {
+            trigger: section.current,
+            start: 'top top',
+            end: () => `+=${dist()}`,
+            scrub: 0.6,
+            pin: true,
+            invalidateOnRefresh: true,
+          },
         })
       })
     }, section)
@@ -131,28 +119,31 @@ export function Technology() {
   }
 
   return (
-    <section ref={section} className="tech" id="teknoloji">
-      <div className="tech-head wrap">
-        <p className="eyebrow">
-          <span className="dot" /> Teknoloji
-        </p>
-        <h2>
-          Cihazların ardındaki <span className="grad">teknoloji</span>
-        </h2>
-      </div>
-      <div ref={track} className="tech-track">
-        {technologies.map((t, i) => (
-          <article key={t.code} className="tech-card" onPointerMove={tilt} onPointerLeave={reset}>
-            <div className="tech-card-inner">
-              <span className="tech-index">{String(i + 1).padStart(2, '0')}</span>
-              <span className="tech-code">{t.code}</span>
-              <h3>{t.title}</h3>
-              <p>{t.text}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+    // the wrapper belongs to React, so the pin spacer GSAP adds stays inside it and unmounting works
+    <div className="tech-wrap">
+      <section ref={section} className="tech" id="teknoloji">
+        <div className="tech-head wrap">
+          <p className="eyebrow">
+            <span className="dot" /> Teknoloji
+          </p>
+          <h2>
+            Cihazların ardındaki <span className="grad">teknoloji</span>
+          </h2>
+        </div>
+        <div ref={track} className="tech-track">
+          {technologies.map((t, i) => (
+            <article key={t.code} className="tech-card" onPointerMove={tilt} onPointerLeave={reset}>
+              <div className="tech-card-inner">
+                <span className="tech-index">{String(i + 1).padStart(2, '0')}</span>
+                <span className="tech-code">{t.code}</span>
+                <h3>{t.title}</h3>
+                <p>{t.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
   )
 }
 
@@ -251,27 +242,48 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-grid">
-          <img src={LOGO} alt="Slimwell Group" className="footer-logo" />
           <div>
-            <h4>Adres</h4>
-            <p>{ADDRESS}</p>
+            <img src={LOGO} alt="Slimwell Group" className="footer-logo" />
+            <p className="footer-note">“İncelmede Devrim” vizyonuyla 2015’ten bu yana profesyonel güzellik ve wellness teknolojileri.</p>
+          </div>
+          <div>
+            <h4>Cihazlar</h4>
+            <ul>
+              {categories.map(c => (
+                <li key={c.slug}>
+                  <Link to={`/cihazlar?kategori=${c.slug}`}>{c.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4>Kurumsal</h4>
+            <ul>
+              <li>
+                <Link to="/markalar">Markalar</Link>
+              </li>
+              {corporatePages.map(p => (
+                <li key={p.to}>
+                  <Link to={p.to}>{p.label}</Link>
+                </li>
+              ))}
+              <li>
+                <a href={SERVICE_URL} target="_blank" rel="noreferrer">
+                  Teknik servis
+                </a>
+              </li>
+            </ul>
           </div>
           <div>
             <h4>İletişim</h4>
+            <p>{ADDRESS}</p>
             <p>
               <a href={PHONE_HREF}>{PHONE}</a>
               <br />
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </p>
-          </div>
-          <div>
-            <h4>Bağlantılar</h4>
             <p>
-              <a href={SERVICE_URL} target="_blank" rel="noreferrer">
-                Teknik servis
-              </a>
-              <br />
-              <a href={CLASSIC}>Klasik site</a>
+              <a href={CLASSIC}>Klasik siteye geç</a>
             </p>
           </div>
         </div>

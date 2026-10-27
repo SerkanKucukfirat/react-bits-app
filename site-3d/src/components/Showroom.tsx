@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import { Link } from 'react-router-dom'
 import { categories, devicePage, showroom } from '../content'
 
 const N = showroom.length
@@ -179,9 +180,9 @@ export default function Showroom() {
               <li key={f}>{f}</li>
             ))}
           </ul>
-          <a className="btn dark" href={devicePage(d)}>
+          <Link className="btn dark" to={devicePage(d)}>
             Cihazı incele <span>↗</span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
