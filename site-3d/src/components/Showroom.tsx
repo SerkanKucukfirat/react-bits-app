@@ -5,8 +5,8 @@ import { categories, devicePage, showroom } from '../content'
 const N = showroom.length
 const STEP = (Math.PI * 2) / N
 
-// A 3D carousel of devices standing in a white studio. Drag or use the arrows to move it;
-// the device at the front gets the spotlight and its details, its neighbours stand back at an angle.
+// A 360° turntable of devices standing in a white studio. Drag or use the arrows to spin it;
+// the device at the front gets the spotlight and its details.
 export default function Showroom() {
   const ring = useRef<HTMLDivElement>(null)
   const items = useRef<(HTMLDivElement | null)[]>([])
@@ -34,8 +34,9 @@ export default function Showroom() {
       const dt = Math.min((now - last) / 1000, 0.05)
       last = now
       const w = el.clientWidth
-      // distance between neighbours: wide enough that the front device never overlaps the next one
-      st.spacing = w < 760 ? w * 0.82 : Math.min(w * 0.4, 620)
+      // radius of the 360° turntable; devices travel round it and the nearest one faces the viewer
+      const R = w < 760 ? w * 0.62 : Math.min(w * 0.44, 660)
+      st.spacing = R * STEP // drag distance that moves one device
       if (!st.dragging) {
         st.idle += dt
         if (st.idle > 4.5) {
@@ -43,22 +44,27 @@ export default function Showroom() {
         }
         st.angle += (st.target - st.angle) * Math.min(dt * 5, 1)
       }
-      // position of the carousel in device units; k is each device's offset from the front
-      const pos = -st.angle / STEP
-      const front = ((Math.round(pos) % N) + N) % N
+      let front = 0
+      let best = -Infinity
       for (let i = 0; i < N; i++) {
         const node = items.current[i]
         if (!node) continue
-        let k = i - pos
-        k = ((((k + N / 2) % N) + N) % N) - N / 2
-        const d = Math.min(Math.abs(k), 2.5)
-        const x = k * st.spacing
-        const scale = 1 - Math.min(d, 1) * 0.3 - Math.max(d - 1, 0) * 0.15
-        node.style.transform = `translate3d(${x}px, 0, ${-d * 260}px) rotateY(${Math.max(-1, Math.min(1, k)) * -28}deg) scale(${scale})`
-        node.style.opacity = String(Math.max(0, 1 - d * 0.45 - Math.max(d - 1, 0) * 0.6))
-        node.style.filter = d > 0.05 ? `blur(${Math.min(d, 1) * 2}px) saturate(${1 - Math.min(d, 1) * 0.5})` : 'none'
-        node.style.zIndex = String(100 - Math.round(d * 30))
-        node.style.pointerEvents = d < 1.6 ? 'auto' : 'none'
+        const a = st.angle + i * STEP
+        const x = Math.sin(a) * R
+        const z = Math.cos(a) * R - R
+        const depth = (Math.cos(a) + 1) / 2 // 1 front, 0 back
+        if (depth > best) {
+          best = depth
+          front = i
+        }
+        // the front device stands out; those round the back recede, small and faint
+        const focus = Math.pow(depth, 4)
+        const scale = 0.42 + focus * 0.68
+        node.style.transform = `translate3d(${x}px, ${(1 - depth) * -46}px, ${z}px) scale(${scale})`
+        node.style.opacity = String(0.12 + focus * 0.88)
+        node.style.filter = focus > 0.97 ? 'none' : `blur(${(1 - focus) * 2.5}px) saturate(${0.5 + focus * 0.5})`
+        node.style.zIndex = String(Math.round(depth * 100))
+        node.style.pointerEvents = depth > 0.5 ? 'auto' : 'none'
       }
       if (front !== shown) {
         shown = front
