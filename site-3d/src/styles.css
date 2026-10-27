@@ -638,7 +638,7 @@ h2 {
 .device img {
   max-height: 100%;
   /* wide devices (Rollshape, Infrashape) may spill past the square so they read as large as tall ones */
-  max-width: 155%;
+  max-width: 150%;
   flex-shrink: 0;
   width: auto;
   object-fit: contain;
@@ -1020,6 +1020,10 @@ h2 {
   .device-info {
     grid-template-columns: 1fr;
     text-align: left;
+  }
+  .device {
+    width: 58vw;
+    margin-left: -29vw;
   }
   .tt-arrow {
     top: auto;

@@ -5,12 +5,12 @@ import { categories, devicePage, showroom } from '../content'
 const N = showroom.length
 const STEP = (Math.PI * 2) / N
 
-// A turntable of devices standing in a white studio. Drag, wheel or use the arrows to spin it;
-// the device at the front gets the spotlight and its details.
+// A 3D carousel of devices standing in a white studio. Drag or use the arrows to move it;
+// the device at the front gets the spotlight and its details, its neighbours stand back at an angle.
 export default function Showroom() {
   const ring = useRef<HTMLDivElement>(null)
   const items = useRef<(HTMLDivElement | null)[]>([])
-  const state = useRef({ angle: 0, target: 0, velocity: 0, dragging: false, lastX: 0, idle: 0 })
+  const state = useRef({ angle: 0, target: 0, dragging: false, lastX: 0, idle: 0, spacing: 500 })
   const [active, setActive] = useState(0)
 
   const snapTo = (i: number) => {
@@ -34,7 +34,8 @@ export default function Showroom() {
       const dt = Math.min((now - last) / 1000, 0.05)
       last = now
       const w = el.clientWidth
-      const R = Math.min(w * 0.5, 760)
+      // distance between neighbours: wide enough that the front device never overlaps the next one
+      st.spacing = w < 760 ? w * 0.82 : Math.min(w * 0.4, 620)
       if (!st.dragging) {
         st.idle += dt
         if (st.idle > 4.5) {
@@ -42,24 +43,22 @@ export default function Showroom() {
         }
         st.angle += (st.target - st.angle) * Math.min(dt * 5, 1)
       }
-      let front = 0
-      let best = -Infinity
+      // position of the carousel in device units; k is each device's offset from the front
+      const pos = -st.angle / STEP
+      const front = ((Math.round(pos) % N) + N) % N
       for (let i = 0; i < N; i++) {
         const node = items.current[i]
         if (!node) continue
-        const a = st.angle + i * STEP
-        const x = Math.sin(a) * R
-        const z = Math.cos(a) * R - R
-        const depth = (Math.cos(a) + 1) / 2 // 1 front, 0 back
-        if (depth > best) {
-          best = depth
-          front = i
-        }
-        const scale = 0.55 + depth * 0.65
-        node.style.transform = `translate3d(${x}px, ${(1 - depth) * -40}px, ${z}px) scale(${scale})`
-        node.style.opacity = String(0.15 + depth * 0.85)
-        node.style.filter = `blur(${(1 - depth) * 3}px) saturate(${0.4 + depth * 0.6})`
-        node.style.zIndex = String(Math.round(depth * 100))
+        let k = i - pos
+        k = ((((k + N / 2) % N) + N) % N) - N / 2
+        const d = Math.min(Math.abs(k), 2.5)
+        const x = k * st.spacing
+        const scale = 1 - Math.min(d, 1) * 0.3 - Math.max(d - 1, 0) * 0.15
+        node.style.transform = `translate3d(${x}px, 0, ${-d * 260}px) rotateY(${Math.max(-1, Math.min(1, k)) * -28}deg) scale(${scale})`
+        node.style.opacity = String(Math.max(0, 1 - d * 0.45 - Math.max(d - 1, 0) * 0.6))
+        node.style.filter = d > 0.05 ? `blur(${Math.min(d, 1) * 2}px) saturate(${1 - Math.min(d, 1) * 0.5})` : 'none'
+        node.style.zIndex = String(100 - Math.round(d * 30))
+        node.style.pointerEvents = d < 1.6 ? 'auto' : 'none'
       }
       if (front !== shown) {
         shown = front
@@ -79,7 +78,7 @@ export default function Showroom() {
       if (!st.dragging) return
       const dx = e.clientX - st.lastX
       st.lastX = e.clientX
-      st.angle += dx * 0.005
+      st.angle += (dx / st.spacing) * STEP
       st.target = st.angle
     }
     const up = () => {
