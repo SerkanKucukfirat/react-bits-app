@@ -37,3 +37,10 @@ Sahne zamanları (`scenes` dizisi) seslendirmenin kelime zamanlamalarına göre 
 - `cikti/Slimwell_Akademi_Sinema_v5.mp4` – 75,5 sn; `src/Akademi5.tsx`, ses `public/seslendirme4.mp3` (Zeynep Kaya, eleven_v3)
 - Seslendirmeden "zayıflama" ve "sözleşme" çıkarıldı; adres "slimwell heo akademi nokta kom" diye okunuyor, ekranda `slimwell.heocademy.com`
 - Yeni adım: Eğitimi Satın Al → Ürünü Hesabıma Ekle (`public/v2/satinal.mp4`, eski videodan) ve ücretsiz eğitimler listesi (`public/v2/ucretsiz.png`)
+
+## v6 (Kasım 2026)
+
+- `cikti/Slimwell_HEO_Academy_v6.mp4` – 73,5 sn; `src/Akademi6.tsx`, ses `public/seslendirme5.mp3`
+- Marka adı her yerde "Slimwell HEO Academy" (seslendirmede "Slimvel Heo Akademi")
+- Marka isimleri sayılmıyor: "Birçok markamızın eğitimleri sizi bekliyor"
+- Revcell görünmüyor: eğitim listesi `public/v2/liste.png` (Revcell kartı çıkarılmış), ücretsiz liste karesi kaldırıldı
