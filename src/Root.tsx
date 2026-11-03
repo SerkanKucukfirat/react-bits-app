@@ -5,6 +5,7 @@ import { Akademi3, TOTAL3 } from './Akademi3'
 import { Akademi4, TOTAL4 } from './Akademi4'
 import { Akademi5, TOTAL5 } from './Akademi5'
 import { Akademi6, TOTAL6 } from './Akademi6'
+import { Akademi7, TOTAL7 } from './Akademi7'
 import { LaptopTest } from './LaptopTest'
 import { Cumhuriyet, CUMHURIYET_FRAMES } from './Cumhuriyet'
 
@@ -17,6 +18,7 @@ export const Root = () => (
     <Composition id="Akademi4" component={Akademi4} durationInFrames={TOTAL4} fps={30} width={1920} height={1080} defaultProps={{ withAudio: false }} />
     <Composition id="Akademi5" component={Akademi5} durationInFrames={TOTAL5} fps={30} width={1920} height={1080} defaultProps={{ withAudio: false }} />
     <Composition id="Akademi6" component={Akademi6} durationInFrames={TOTAL6} fps={30} width={1920} height={1080} defaultProps={{ withAudio: false }} />
+    <Composition id="Akademi7" component={Akademi7} durationInFrames={TOTAL7} fps={30} width={1920} height={1080} defaultProps={{ withAudio: false }} />
     <Composition id="LaptopTest" component={LaptopTest} durationInFrames={1} fps={30} width={1920} height={1080} defaultProps={{ lid: 8, rx: -14, ry: -18, s: 0.6 }} />
   </>
 )

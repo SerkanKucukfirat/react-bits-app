@@ -44,3 +44,10 @@ Sahne zamanları (`scenes` dizisi) seslendirmenin kelime zamanlamalarına göre 
 - Marka adı her yerde "Slimwell HEO Academy" (seslendirmede "Slimvel Heo Akademi")
 - Marka isimleri sayılmıyor: "Birçok markamızın eğitimleri sizi bekliyor"
 - Revcell görünmüyor: eğitim listesi `public/v2/liste.png` (Revcell kartı çıkarılmış), ücretsiz liste karesi kaldırıldı
+
+## v7 (Kasım 2026)
+
+- `cikti/Slimwell_HEO_Academy_v7.mp4` – 73,5 sn; `src/Akademi7.tsx` (içerik ve ses v6 ile aynı)
+- Her adım tek çekim; çekimler arası karanlığa yumuşak geçiş + mor ışık süzülmesi (üst üste binen laptop yok)
+- Kamera en fazla %6 yaklaşır / 40 px kayar, geçişlerde durmaz; ekran içinde sert zoom yok
+- site.mp4'teki mavi yükleme karesi atlandı
