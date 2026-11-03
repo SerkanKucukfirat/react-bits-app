@@ -31,3 +31,9 @@ Sahne zamanları (`scenes` dizisi) seslendirmenin kelime zamanlamalarına göre 
    Revcell → "Rev sel", heocademy → ?, Quiz → "Kuiz". "Slimwell Akademi" mi
    "Slimwell HEO Akademi" mi söyleneceği de sorulacak.
 4. İstenirse fon müziği (Magnific'te üretilip indirilecek).
+
+## v5 (Kasım 2026)
+
+- `cikti/Slimwell_Akademi_Sinema_v5.mp4` – 75,5 sn; `src/Akademi5.tsx`, ses `public/seslendirme4.mp3` (Zeynep Kaya, eleven_v3)
+- Seslendirmeden "zayıflama" ve "sözleşme" çıkarıldı; adres "slimwell heo akademi nokta kom" diye okunuyor, ekranda `slimwell.heocademy.com`
+- Yeni adım: Eğitimi Satın Al → Ürünü Hesabıma Ekle (`public/v2/satinal.mp4`, eski videodan) ve ücretsiz eğitimler listesi (`public/v2/ucretsiz.png`)
