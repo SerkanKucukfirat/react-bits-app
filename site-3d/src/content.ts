@@ -116,7 +116,7 @@ export const slides: Slide[] = [
 // Devices that have a transparent cut-out in public/devices/3d
 const CUTOUTS = new Set(['cryo-q-one', 'infra-step', 'rollshape', 'infrashape', 'vacuactiv', 'hydroshape', 'rollbeautyline', 'aquaslimmer', 'activshape', 'emfit-plus-neo'])
 // bump when a cutout file is replaced, so browsers drop the cached old image
-const CUTOUT_VERSION = '3'
+const CUTOUT_VERSION = '4'
 export const cutoutOf = (d: Device) => (CUTOUTS.has(d.slug) ? `${CLASSIC}devices/3d/${d.slug}.webp?v=${CUTOUT_VERSION}` : undefined)
 
 export const corporatePages = [
