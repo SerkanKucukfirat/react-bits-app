@@ -2079,6 +2079,200 @@ html.menu-open {
   color: var(--ice);
 }
 
+/* blog cards: cover, date, title, excerpt */
+.blog-card .post-inner {
+  gap: 14px;
+  padding: 14px 14px 24px;
+}
+.blog-card .post-n,
+.blog-card h3,
+.blog-card .blog-excerpt,
+.blog-card i {
+  padding-inline: 12px;
+}
+.blog-cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  margin-bottom: 6px;
+  --tint: 159, 216, 255;
+  background:
+    radial-gradient(80% 70% at 50% 100%, rgba(var(--tint), 0.26), transparent 70%),
+    radial-gradient(50% 40% at 85% 10%, rgba(var(--tint), 0.12), transparent 70%),
+    linear-gradient(160deg, #1a2133 0%, #0b0e16 100%);
+}
+.blog-cover.has-device {
+  background: radial-gradient(70% 60% at 50% 40%, #ffffff 0%, var(--studio) 75%);
+}
+.blog-cover img {
+  width: 78%;
+  height: 82%;
+  object-fit: contain;
+  transition: transform 0.8s var(--ease);
+}
+.blog-card:hover .blog-cover img {
+  transform: scale(1.05) translateY(-2%);
+}
+.blog-initial {
+  font-size: clamp(4.5rem, 9vw, 6.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  background: linear-gradient(180deg, #f3f6fb, rgba(var(--tint), 0.3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.blog-card h3 {
+  flex: 0 0 auto;
+}
+.blog-excerpt {
+  flex: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.blog-more {
+  padding-top: clamp(40px, 6vw, 80px);
+}
+.blog-more h2 {
+  grid-column: 1 / -1;
+  margin: 0 0 6px;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+/* blog post: smaller hero title, readable light article */
+.page-hero--article {
+  min-height: clamp(420px, 62vh, 640px);
+}
+.page-hero--article .ph-title {
+  font-size: clamp(2rem, 4.6vw, 4.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  max-width: 1000px;
+}
+.article-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 720px) minmax(0, 300px);
+  justify-content: space-between;
+  gap: clamp(32px, 6vw, 90px);
+  align-items: start;
+}
+.article,
+.article-loading {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #2a2f3d;
+  min-width: 0;
+}
+.article-loading {
+  color: #6b7285;
+}
+.article > :first-child {
+  margin-top: 0;
+}
+.article p {
+  margin: 0 0 1.15em;
+}
+.article h2 {
+  margin: 1.9em 0 0.6em;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--studio-ink);
+}
+.article h3,
+.article h4 {
+  margin: 1.6em 0 0.5em;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--studio-ink);
+}
+.article strong {
+  font-weight: 600;
+  color: var(--studio-ink);
+}
+.article ul,
+.article ol {
+  margin: 0 0 1.2em;
+  padding-left: 1.3em;
+}
+.article li {
+  margin-bottom: 0.45em;
+}
+.article li::marker {
+  color: #3a5a86;
+}
+.article a {
+  color: #2d5a94;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.article a:hover {
+  color: var(--studio-ink);
+}
+.article table {
+  width: 100%;
+  margin: 0 0 1.4em;
+  border-collapse: collapse;
+  font-size: 15px;
+  display: block;
+  overflow-x: auto;
+}
+.article th,
+.article td {
+  padding: 10px 14px;
+  border: 1px solid rgba(11, 13, 20, 0.12);
+  text-align: left;
+  vertical-align: top;
+}
+.article th {
+  background: rgba(11, 13, 20, 0.04);
+  font-weight: 600;
+}
+.article-cta {
+  position: sticky;
+  top: 110px;
+  display: grid;
+  gap: 18px;
+  padding: 26px;
+  border-radius: 22px;
+  background: #fff;
+  border: 1px solid rgba(11, 13, 20, 0.08);
+  box-shadow: 0 30px 60px -30px rgba(11, 13, 20, 0.25);
+}
+.article-cta p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #2a2f3d;
+}
+.article-pager strong {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.35;
+  max-width: 460px;
+}
+@media (max-width: 900px) {
+  .article-wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .article-cta {
+    position: static;
+  }
+  .article {
+    font-size: 16px;
+  }
+}
+
 /* ---------- Contact ---------- */
 .contact-grid {
   display: grid;

@@ -7,6 +7,7 @@ const dist = path.resolve('dist/3d')
 const html = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 const data = fs.readFileSync('src/data.ts', 'utf8')
 const slugs = [...data.matchAll(/^\s+slug: '([a-z0-9-]+)',\n\s+name:/gm)].map(m => m[1])
+const posts = JSON.parse(fs.readFileSync('site-3d/src/blog/index.json', 'utf8')).map(p => p.slug)
 
 const routes = [
   'cihazlar',
@@ -21,10 +22,11 @@ const routes = [
   'heocademy',
   'iletisim',
   ...slugs.map(s => `cihazlar/${s}`),
+  ...posts.map(s => `blog/${s}`),
 ]
 for (const r of routes) {
   fs.mkdirSync(path.join(dist, r), { recursive: true })
   fs.writeFileSync(path.join(dist, r, 'index.html'), html)
 }
 fs.writeFileSync(path.join(dist, '404.html'), html)
-console.log(`prerendered ${routes.length} routes (${slugs.length} devices)`)
+console.log(`prerendered ${routes.length} routes (${slugs.length} devices, ${posts.length} posts)`)

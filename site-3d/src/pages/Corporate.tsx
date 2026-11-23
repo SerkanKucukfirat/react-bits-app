@@ -18,7 +18,6 @@ import {
   PHONE_HREF,
   SERVICE_URL,
   WHATSAPP,
-  blogPosts,
   brands,
   corporatePages,
   fairs,
@@ -30,7 +29,7 @@ import {
 const CRUMB = [{ to: '/hakkimizda', label: 'Kurumsal' }]
 
 // Sub-navigation shared by the corporate pages
-function CorporateNav() {
+export function CorporateNav() {
   return (
     <nav className="subnav" aria-label="Kurumsal">
       <div className="subnav-track">
@@ -285,28 +284,6 @@ export function PrivacyPage() {
               </ul>
             )}
           </article>
-        ))}
-      </section>
-    </div>
-  )
-}
-
-export function BlogPage() {
-  const ref = useRef<HTMLDivElement>(null)
-  useReveal(ref)
-  return (
-    <div ref={ref}>
-      <PageHero eyebrow="Slimwell Blog" title="Wellness, teknoloji ve güzellik" text="Sektörden haberler, cihaz rehberleri ve sağlıklı yaşam önerileri." crumbs={[{ to: '/blog', label: 'Blog' }]} />
-      <CorporateNav />
-      <section className="wrap blog-grid">
-        {blogPosts.map((p, i) => (
-          <a key={p.url} href={p.url} target="_blank" rel="noreferrer" className="post reveal" onPointerMove={tilt} onPointerLeave={untilt}>
-            <div className="post-inner">
-              <span className="post-n">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{p.title}</h3>
-              <i>Yazıyı oku ↗</i>
-            </div>
-          </a>
         ))}
       </section>
     </div>

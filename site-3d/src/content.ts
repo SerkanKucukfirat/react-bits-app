@@ -17,7 +17,6 @@ export {
   PHONE_HREF,
   SERVICE_URL,
   WHATSAPP,
-  blogPosts,
   bySlug,
   fairs,
   faqs,

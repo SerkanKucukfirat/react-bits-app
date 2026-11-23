@@ -9,10 +9,11 @@ type Props = {
   text?: string
   crumbs?: { to: string; label: string }[]
   children?: ReactNode
+  className?: string
 }
 
 // Dark, cinematic page header shared by the inner pages: the same wave of light as the home page.
-export default function PageHero({ eyebrow, title, text, crumbs = [], children }: Props) {
+export default function PageHero({ eyebrow, title, text, crumbs = [], children, className = '' }: Props) {
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function PageHero({ eyebrow, title, text, crumbs = [], children }
   }, [title])
 
   return (
-    <section ref={ref} className="page-hero">
+    <section ref={ref} className={`page-hero ${className}`}>
       <ParticleField />
       <div className="page-hero-fade" />
       <div className="ph-inner wrap">
