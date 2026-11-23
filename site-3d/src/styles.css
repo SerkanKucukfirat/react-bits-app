@@ -294,6 +294,10 @@ h2 {
 .hero-word:first-child {
   margin-top: 0.04em;
 }
+/* pull the second line up: the first word has no descenders, so the lines can sit tight */
+.hero-word + .hero-word {
+  margin-top: -0.32em;
+}
 .hero-title {
   font-size: clamp(2.6rem, 8.6vw, 8.4rem);
   font-weight: 600;
