@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { categories, devicePage, showroom } from '../content'
 
 const N = showroom.length
@@ -11,8 +11,11 @@ const STEP = (Math.PI * 2) / N
 export default function Showroom() {
   const ring = useRef<HTMLDivElement>(null)
   const items = useRef<(HTMLDivElement | null)[]>([])
-  const state = useRef({ angle: 0, target: 0, dragging: false, lastX: 0, idle: 0, spacing: 500 })
+  const state = useRef({ angle: 0, target: 0, dragging: false, lastX: 0, downX: 0, picked: -1, idle: 0, spacing: 500 })
   const [active, setActive] = useState(0)
+  const navigate = useNavigate()
+  const go = useRef(navigate)
+  go.current = navigate
 
   const snapTo = (i: number) => {
     const st = state.current
@@ -78,6 +81,10 @@ export default function Showroom() {
       if ((e.target as HTMLElement).closest('button')) return // let the arrow buttons click
       st.dragging = true
       st.lastX = e.clientX
+      st.downX = e.clientX
+      // which device was pressed: a tap (not a drag) on it opens or turns to it on release
+      const dev = (e.target as HTMLElement).closest<HTMLElement>('.device')
+      st.picked = dev ? items.current.indexOf(dev as HTMLDivElement) : -1
       st.idle = 0
       el.setPointerCapture(e.pointerId)
     }
@@ -91,7 +98,15 @@ export default function Showroom() {
     const up = () => {
       if (!st.dragging) return
       st.dragging = false
-      snapTo((((Math.round(-st.angle / STEP)) % N) + N) % N)
+      const tapped = Math.abs(st.lastX - st.downX) < 6 ? st.picked : -1
+      st.picked = -1
+      if (tapped >= 0 && tapped === shown) {
+        // the device at the front opens its page at the description
+        go.current(`${devicePage(showroom[tapped])}#aciklama`)
+        return
+      }
+      if (tapped >= 0) snapTo(tapped)
+      else snapTo((((Math.round(-st.angle / STEP)) % N) + N) % N)
     }
     el.addEventListener('pointerdown', down)
     el.addEventListener('pointermove', move)
@@ -153,7 +168,7 @@ export default function Showroom() {
             ref={n => {
               items.current[i] = n
             }}
-            onClick={() => snapTo(i)}
+            title={i === active ? `${dev.name} — açıklamaya git` : dev.name}
           >
             <img src={dev.cutout} alt={dev.name} draggable={false} decoding="async" />
           </div>

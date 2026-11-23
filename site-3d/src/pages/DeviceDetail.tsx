@@ -91,7 +91,7 @@ export default function DeviceDetail() {
         </div>
       </section>
 
-      <section className="studio">
+      <section className="studio" id="aciklama">
         <div className="wrap dd-body">
           <div className="dd-text">
             <p className="eyebrow dark reveal">

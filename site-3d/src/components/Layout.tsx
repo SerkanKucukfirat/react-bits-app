@@ -37,19 +37,32 @@ function useSmoothScroll() {
 
 // Each route starts at the top behind a short curtain wipe, and scroll animations are re-measured.
 function usePageChange(curtain: RefObject<HTMLDivElement | null>) {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   const first = useRef(true)
   useEffect(() => {
     // force: the mobile menu stops Lenis while it is open, and a new page must still start at the top
     window.scrollTo(0, 0)
     lenis?.scrollTo(0, { immediate: true, force: true })
     const id = window.setTimeout(() => ScrollTrigger.refresh(), 120)
+    // a link with #section (e.g. a showroom device to its description) glides there once the curtain lifts
+    const jump = hash
+      ? window.setTimeout(() => {
+          const el = document.getElementById(decodeURIComponent(hash.slice(1)))
+          if (!el) return
+          if (lenis) lenis.scrollTo(el, { offset: -80, duration: 1.4 })
+          else el.scrollIntoView({ behavior: 'smooth' })
+        }, 650)
+      : 0
     if (first.current) {
       first.current = false
     } else if (curtain.current) {
       gsap.fromTo(curtain.current, { scaleY: 1, transformOrigin: '50% 0%' }, { scaleY: 0, duration: 0.9, ease: 'expo.inOut' })
     }
-    return () => window.clearTimeout(id)
+    return () => {
+      window.clearTimeout(id)
+      window.clearTimeout(jump)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, curtain])
 }
 

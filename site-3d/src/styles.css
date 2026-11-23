@@ -669,6 +669,32 @@ h2 {
   transform-origin: 50% 100%;
   will-change: transform, opacity;
 }
+.device.is-front {
+  cursor: pointer;
+}
+/* hovering the front device shows that a click opens its description */
+.device.is-front::after {
+  content: 'Açıklamayı gör ↗';
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  transform: translate(-50%, 6px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(11, 13, 20, 0.86);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.device.is-front:hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
 .device img {
   max-height: 100%;
   /* wide devices (Rollshape, Infrashape) may spill past the square so they read as large as tall ones */
