@@ -11,7 +11,6 @@ export {
   EMAIL,
   FACEBOOK_URL,
   ISO_LOGO,
-  LOGO,
   MAP_EMBED,
   PARTNERS_VIDEO,
   PHONE,
@@ -27,6 +26,19 @@ export {
 } from '@shared/data'
 
 const UPLOADS = 'https://www.slimwell.com.tr/wp-content/uploads/'
+
+// Slimwell Group logosu (beyaz, saydam zemin): menü ve alt bilgide kullanılır
+export { default as LOGO } from './assets/slimwell-group-logo.png'
+
+/*
+ * Heocademy videoları.
+ * Yeni video eklemek için listeye bir satır ekleyin:
+ *   { title: 'Başlık', url: 'https://youtu.be/...', text: 'Kısa açıklama', duration: '12:40', category: 'Cihaz eğitimi' }
+ * url: videoya tıklayınca açılacak adres (YouTube, Vimeo, Google Drive vb.).
+ * image (isteğe bağlı): kapak görseli; YouTube linklerinde boş bırakılırsa kapak otomatik alınır.
+ */
+export type AcademyVideo = { title: string; url: string; text?: string; duration?: string; category?: string; image?: string }
+export const academyVideos: AcademyVideo[] = []
 
 // The classic site sits one level up from /3d/
 export const CLASSIC = import.meta.env.BASE_URL.replace(/3d\/$/, '')

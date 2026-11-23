@@ -39,10 +39,10 @@ export default function Hero() {
       const scrub = { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: 0.6 }
       gsap.fromTo(
         unfold.current,
-        { rotateX: mobile ? 14 : 26, scale: mobile ? 0.92 : 0.56 },
+        { rotateX: mobile ? 14 : 26, scale: mobile ? 0.92 : 0.5 },
         { rotateX: 0, scale: 1, ease: 'none', scrollTrigger: scrub },
       )
-      if (!mobile) gsap.fromTo(stageRef.current, { y: 28 }, { y: 0, ease: 'none', scrollTrigger: { ...scrub } })
+      if (!mobile) gsap.fromTo(stageRef.current, { y: 56 }, { y: 0, ease: 'none', scrollTrigger: { ...scrub } })
       gsap.to(copy.current, {
         opacity: 0,
         y: -80,

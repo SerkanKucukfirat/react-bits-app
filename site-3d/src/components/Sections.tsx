@@ -262,6 +262,9 @@ export function Footer() {
               <li>
                 <Link to="/markalar">Markalar</Link>
               </li>
+              <li>
+                <Link to="/heocademy">Heocademy</Link>
+              </li>
               {corporatePages.map(p => (
                 <li key={p.to}>
                   <Link to={p.to}>{p.label}</Link>

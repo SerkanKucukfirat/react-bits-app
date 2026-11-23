@@ -11,6 +11,7 @@ import {
   PartnersPage,
   PrivacyPage,
 } from './pages/Corporate'
+import AcademyPage from './pages/Academy'
 import DeviceDetail from './pages/DeviceDetail'
 import Devices from './pages/Devices'
 import Home from './pages/Home'
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="sik-sorulan-sorular" element={<FaqPage />} />
           <Route path="gizlilik-politikamiz" element={<PrivacyPage />} />
           <Route path="blog" element={<BlogPage />} />
+          <Route path="heocademy" element={<AcademyPage />} />
           <Route path="iletisim" element={<ContactPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

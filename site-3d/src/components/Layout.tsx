@@ -110,6 +110,10 @@ function Nav() {
               ))}
             </div>
           </div>
+          <NavLink to="/heocademy" className={({ isActive }) => `nav-academy ${isActive ? 'active' : ''}`}>
+            <span className="nav-academy-dot" aria-hidden />
+            Heocademy
+          </NavLink>
           <NavLink to="/iletisim">İletişim</NavLink>
         </nav>
         <div className="nav-actions">
@@ -138,6 +142,7 @@ function Nav() {
               {p.label}
             </Link>
           ))}
+          <Link to="/heocademy">Heocademy</Link>
           <Link to="/iletisim">İletişim</Link>
           <a className="btn light" href={WHATSAPP} target="_blank" rel="noreferrer">
             WhatsApp’tan yazın <span>↗</span>

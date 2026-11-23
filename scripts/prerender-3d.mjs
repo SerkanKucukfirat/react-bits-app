@@ -18,6 +18,7 @@ const routes = [
   'sik-sorulan-sorular',
   'gizlilik-politikamiz',
   'blog',
+  'heocademy',
   'iletisim',
   ...slugs.map(s => `cihazlar/${s}`),
 ]
