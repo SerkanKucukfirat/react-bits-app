@@ -230,7 +230,7 @@ export function Footer() {
             <span className="dot" /> İletişim
           </p>
           <h2>
-            Merkezinize <span className="grad">geleceği</span> taşıyalım.
+            <span className="grad">Geleceğinizi</span> merkezinize taşıyalım.
           </h2>
           <div className="cta-actions">
             <a className="btn light" href={WHATSAPP} target="_blank" rel="noreferrer">
