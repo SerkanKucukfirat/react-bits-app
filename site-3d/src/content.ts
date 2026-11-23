@@ -135,7 +135,6 @@ export const showroom = [
   'infrashape',
   'vacuactiv',
   'hydroshape',
-  'rollbeautyline',
   'aquaslimmer',
   'activshape',
   'emfit-plus-neo',
