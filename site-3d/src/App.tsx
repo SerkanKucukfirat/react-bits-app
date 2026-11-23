@@ -12,6 +12,7 @@ import {
 } from './pages/Corporate'
 import AcademyPage from './pages/Academy'
 import { BlogPage, BlogPost } from './pages/Blog'
+import ServicePage from './pages/Service'
 import DeviceDetail from './pages/DeviceDetail'
 import Devices from './pages/Devices'
 import Home from './pages/Home'
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="blog/:slug" element={<BlogPost />} />
           <Route path="heocademy" element={<AcademyPage />} />
           <Route path="iletisim" element={<ContactPage />} />
+          <Route path="teknik-servis" element={<ServicePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

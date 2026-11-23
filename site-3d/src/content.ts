@@ -142,6 +142,13 @@ export const showroom = [
   'aquaslimmer',
   'activshape',
   'emfit-plus-neo',
+  'beautyline',
+  'bodyshape',
+  'bodyslimmer',
+  'rollslimmer',
+  'infraslimmer',
+  'activcouch',
+  'couchslimmer',
 ]
   .map(slug => devices.find(d => d.slug === slug))
   .filter((d): d is Device => Boolean(d))

@@ -12,7 +12,6 @@ import {
   corporatePages,
   PHONE,
   PHONE_HREF,
-  SERVICE_URL,
   WHATSAPP,
   brands,
   stats,
@@ -271,9 +270,7 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <a href={SERVICE_URL} target="_blank" rel="noreferrer">
-                  Teknik servis
-                </a>
+                <Link to="/teknik-servis">Teknik servis</Link>
               </li>
             </ul>
           </div>

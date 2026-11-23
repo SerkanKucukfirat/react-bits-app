@@ -21,6 +21,7 @@ const routes = [
   'blog',
   'heocademy',
   'iletisim',
+  'teknik-servis',
   ...slugs.map(s => `cihazlar/${s}`),
   ...posts.map(s => `blog/${s}`),
 ]

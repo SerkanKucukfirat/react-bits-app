@@ -39,7 +39,8 @@ export default function Showroom() {
       last = now
       const w = el.clientWidth
       // radius of the 360° turntable; devices travel round it and the nearest one faces the viewer
-      const R = w < 760 ? w * 0.62 : Math.min(w * 0.44, 660)
+      // the ring grows with the number of devices, so neighbours keep the same spacing as with nine
+      const R = (w < 760 ? w * 0.62 : Math.min(w * 0.44, 660)) * Math.max(1, N / 9)
       st.spacing = R * STEP // drag distance that moves one device
       if (!st.dragging) {
         st.idle += dt
@@ -56,7 +57,10 @@ export default function Showroom() {
         const a = st.angle + i * STEP
         const x = Math.sin(a) * R
         const z = Math.cos(a) * R - R
-        const depth = (Math.cos(a) + 1) / 2 // 1 front, 0 back
+        // fade and shrink by how many places a device is from the front (as with nine devices),
+        // so a fuller ring keeps the same airy look
+        const wrapped = Math.atan2(Math.sin(a), Math.cos(a))
+        const depth = (Math.cos(Math.min(Math.abs(wrapped) * Math.max(1, N / 9), Math.PI)) + 1) / 2 // 1 front, 0 back
         if (depth > best) {
           best = depth
           front = i

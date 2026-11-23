@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import PageHero from '../components/PageHero'
+import RequestForm, { type Field } from '../components/RequestForm'
 import { tilt, untilt, useReveal } from '../components/useReveal'
 import {
   ABOUT_PAGE,
@@ -16,9 +17,9 @@ import {
   PARTNERS_VIDEO,
   PHONE,
   PHONE_HREF,
-  SERVICE_URL,
   WHATSAPP,
   brands,
+  categories,
   corporatePages,
   fairs,
   faqs,
@@ -290,14 +291,26 @@ export function PrivacyPage() {
   )
 }
 
+const CONTACT_FIELDS: Field[] = [
+  { name: 'name', label: 'Ad Soyad', required: true, half: true, autoComplete: 'name' },
+  { name: 'email', label: 'E-posta', type: 'email', required: true, half: true, autoComplete: 'email' },
+  { name: 'phone', label: 'Telefon', type: 'tel', required: true, half: true, autoComplete: 'tel' },
+  { name: 'company', label: 'İşletme adı', half: true, autoComplete: 'organization' },
+  { name: 'city', label: 'İl', required: true, half: true, autoComplete: 'address-level1' },
+  { name: 'district', label: 'İlçe', half: true, autoComplete: 'address-level2' },
+  { name: 'interest', label: 'Bilgi almak istediğiniz alan', type: 'checks', options: [...categories.map(c => c.name), 'Dermokozmetik Markalar'] },
+  { name: 'message', label: 'Mesajınız', type: 'textarea', placeholder: 'Merak ettiklerinizi yazın.' },
+]
+
 export function ContactPage() {
+  const navigate = useNavigate()
   const ref = useRef<HTMLDivElement>(null)
   useReveal(ref)
   const cards = [
     { title: 'Telefon', value: PHONE, href: PHONE_HREF },
     { title: 'WhatsApp', value: 'Hemen yazın', href: WHATSAPP, external: true },
     { title: 'E-posta', value: EMAIL, href: `mailto:${EMAIL}` },
-    { title: 'Teknik servis', value: 'Servis formu', href: SERVICE_URL, external: true },
+    { title: 'Teknik servis', value: 'Servis talebi', href: `${import.meta.env.BASE_URL}teknik-servis`, internal: '/teknik-servis' },
     { title: 'Facebook', value: 'SlimwellGroup', href: FACEBOOK_URL, external: true },
   ]
   return (
@@ -308,11 +321,31 @@ export function ContactPage() {
         text="Cihazlarımız, markalarımız ve iş ortaklığı için ekibimiz size yardımcı olmaya hazır."
         crumbs={[{ to: '/iletisim', label: 'İletişim' }]}
       />
+      <section className="studio contact-form-section" id="form">
+        <div className="wrap form-wrap">
+          <div className="form-card reveal">
+            <h2>Bilgi formu</h2>
+            <p className="form-lead">Cihazlarımız ve markalarımız hakkında bilgi almak için formu doldurun, ekibimiz size dönsün.</p>
+            <RequestForm title="Web sitesi bilgi talebi" fields={CONTACT_FIELDS} />
+          </div>
+          <aside className="form-aside reveal">
+            <h3>Doğrudan ulaşın</h3>
+            <p>Hafta içi 09:00–18:00 arası arayabilirsiniz.</p>
+            <a className="btn dark" href={PHONE_HREF}>
+              {PHONE}
+            </a>
+            <a className="btn ghost-dark" href={`mailto:${EMAIL}`}>
+              {EMAIL}
+            </a>
+          </aside>
+        </div>
+      </section>
       <section className="wrap contact-grid">
         {cards.map(c => (
           <a
             key={c.title}
             href={c.href}
+            onClick={c.internal ? e => { e.preventDefault(); navigate(c.internal) } : undefined}
             className="ccard reveal"
             onPointerMove={tilt}
             onPointerLeave={untilt}
