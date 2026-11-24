@@ -159,7 +159,7 @@ export default function Showroom() {
         <h2>
           Cihazlarımızı <span className="ink-grad">her açıdan</span> keşfedin
         </h2>
-        <p className="lead">Sürükleyin, döndürün, inceleyin. Avrupa Birliği’nde üretilen yeni nesil zayıflama ve wellness teknolojileri.</p>
+        <p className="lead">Avrupa Birliği’nde üretilen yeni nesil zayıflama ve wellness teknolojileri.</p>
       </div>
 
       <div className="turntable" ref={ring}>
