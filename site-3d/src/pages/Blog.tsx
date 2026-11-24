@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import { tilt, untilt, useReveal } from '../components/useReveal'
-import { CLASSIC, WHATSAPP } from '../content'
+import { WHATSAPP } from '../content'
 import blogIndex from '../blog/index.json'
 import NotFound from './NotFound'
 import { CorporateNav } from './Corporate'
@@ -17,30 +17,12 @@ export function trDate(iso: string) {
   return `${d} ${MONTHS[m - 1]} ${y}`
 }
 
-// Card cover: the device the post is about, or the post's initial on the brand gradient
-const TINTS = ['159, 216, 255', '183, 168, 255', '134, 226, 214', '255, 196, 170']
-function Cover({ b }: { b: BlogMeta }) {
-  const tint = TINTS[[...b.slug].reduce((n, c) => n + c.charCodeAt(0), 0) % TINTS.length]
-  return (
-    <div className={`blog-cover ${b.cover ? 'has-device' : ''}`} style={{ '--tint': tint } as CSSProperties}>
-      {b.cover ? (
-        <img src={`${CLASSIC}devices/3d/${b.cover}.webp?v=4`} alt="" loading="lazy" />
-      ) : (
-        <span className="blog-initial" aria-hidden>
-          {b.title.charAt(0)}
-        </span>
-      )}
-    </div>
-  )
-}
-
 export function BlogCard({ b }: { b: BlogMeta }) {
   return (
     <Link to={blogPath(b)} className="post blog-card reveal" onPointerMove={tilt} onPointerLeave={untilt}>
       <div className="post-inner">
-        <Cover b={b} />
         <span className="post-n">
-          {trDate(b.date)} · {b.minutes} dk okuma
+          {trDate(b.date)}
         </span>
         <h3>{b.title}</h3>
         <p className="blog-excerpt">{b.excerpt}</p>
@@ -114,7 +96,7 @@ export function BlogPost() {
         className="page-hero--article"
         eyebrow="Slimwell Blog"
         title={meta.title}
-        text={`${trDate(meta.date)} · ${meta.minutes} dk okuma`}
+        text={trDate(meta.date)}
         crumbs={[{ to: '/blog', label: 'Blog' }]}
       />
       <section className="studio">

@@ -2088,49 +2088,13 @@ html.menu-open {
 /* blog cards: cover, date, title, excerpt */
 .blog-card .post-inner {
   gap: 14px;
-  padding: 14px 14px 24px;
+  padding: 26px 14px 24px;
 }
 .blog-card .post-n,
 .blog-card h3,
 .blog-card .blog-excerpt,
 .blog-card i {
   padding-inline: 12px;
-}
-.blog-cover {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  border-radius: 16px;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  margin-bottom: 6px;
-  --tint: 159, 216, 255;
-  background:
-    radial-gradient(80% 70% at 50% 100%, rgba(var(--tint), 0.26), transparent 70%),
-    radial-gradient(50% 40% at 85% 10%, rgba(var(--tint), 0.12), transparent 70%),
-    linear-gradient(160deg, #1a2133 0%, #0b0e16 100%);
-}
-.blog-cover.has-device {
-  background: radial-gradient(70% 60% at 50% 40%, #ffffff 0%, var(--studio) 75%);
-}
-.blog-cover img {
-  width: 78%;
-  height: 82%;
-  object-fit: contain;
-  transition: transform 0.8s var(--ease);
-}
-.blog-card:hover .blog-cover img {
-  transform: scale(1.05) translateY(-2%);
-}
-.blog-initial {
-  font-size: clamp(4.5rem, 9vw, 6.5rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  background: linear-gradient(180deg, #f3f6fb, rgba(var(--tint), 0.3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 .blog-card h3 {
   flex: 0 0 auto;
