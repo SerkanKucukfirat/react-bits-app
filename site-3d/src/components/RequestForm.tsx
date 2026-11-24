@@ -1,8 +1,9 @@
-import { useState, type FormEvent, type ReactNode } from 'react'
+import { useState, type FormEvent, type MouseEvent, type ReactNode } from 'react'
 import { EMAIL, WHATSAPP } from '../content'
 
-// The site is static (GitHub Pages), so a request is handed to WhatsApp — or the visitor's mail app —
-// as a ready-written message. Nothing is stored or sent anywhere else.
+// The site is static (GitHub Pages), so requests are mailed to EMAIL through FormSubmit
+// (formsubmit.co), a form-to-email relay. WhatsApp stays available as a second way to send.
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${EMAIL}`
 const WA_NUMBER = /wa\.me\/(\d+)/.exec(WHATSAPP)?.[1] ?? ''
 
 export type Field =
@@ -12,44 +13,61 @@ export type Field =
   | { name: string; label: string; type: 'checks'; options: string[] }
 
 type Props = { title: string; fields: Field[]; submitLabel?: string; note?: ReactNode }
+type State = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent' } | { kind: 'wa'; text: string } | { kind: 'error'; text: string }
 
-function compose(title: string, fields: Field[], data: FormData) {
-  const lines = [`*${title}*`, '']
-  for (const f of fields) {
-    const v = f.type === 'checks' ? data.getAll(f.name).join(', ') : String(data.get(f.name) ?? '').trim()
-    if (v) lines.push(f.type === 'textarea' ? `${f.label}:\n${v}` : `${f.label}: ${v}`)
-  }
-  return lines.join('\n')
+function values(fields: Field[], data: FormData) {
+  return fields
+    .map(f => [f.label, f.type === 'checks' ? data.getAll(f.name).join(', ') : String(data.get(f.name) ?? '').trim()] as const)
+    .filter(([, v]) => v)
 }
 
-export default function RequestForm({ title, fields, submitLabel = 'WhatsApp ile gönder', note }: Props) {
-  const [sent, setSent] = useState<'wa' | 'mail' | null>(null)
-  const [message, setMessage] = useState('')
+function compose(title: string, rows: (readonly [string, string])[]) {
+  return [`*${title}*`, '', ...rows.map(([k, v]) => (v.includes('\n') ? `${k}:\n${v}` : `${k}: ${v}`))].join('\n')
+}
 
-  const read = (form: HTMLFormElement) => {
-    if (!form.reportValidity()) return null
-    return compose(title, fields, new FormData(form))
+export default function RequestForm({ title, fields, submitLabel = 'Gönder', note }: Props) {
+  const [state, setState] = useState<State>({ kind: 'idle' })
+
+  const read = (form: HTMLFormElement) => (form.reportValidity() ? values(fields, new FormData(form)) : null)
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const rows = read(form)
+    if (!rows) return
+    setState({ kind: 'sending' })
+    const email = rows.find(([k]) => k === 'E-posta')?.[1]
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: [title, rows.find(([k]) => k === 'Ad Soyad')?.[1]].filter(Boolean).join(' — '),
+          _template: 'table',
+          _captcha: 'false',
+          ...(email ? { _replyto: email } : {}),
+          ...Object.fromEntries(rows),
+        }),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok || String(json.success) !== 'true') throw new Error(json.message || res.status)
+      form.reset()
+      setState({ kind: 'sent' })
+    } catch {
+      setState({ kind: 'error', text: compose(title, rows) })
+    }
   }
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const text = read(e.currentTarget)
-    if (!text) return
-    setMessage(text)
-    setSent('wa')
+  const byWhatsApp = (e: MouseEvent<HTMLButtonElement>) => {
+    const rows = read(e.currentTarget.form!)
+    if (!rows) return
+    const text = compose(title, rows)
+    setState({ kind: 'wa', text })
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
   }
 
-  const byMail = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const text = read(e.currentTarget.form!)
-    if (!text) return
-    setMessage(text)
-    setSent('mail')
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text.replace(/\*/g, ''))}`
-  }
-
   return (
-    <form className="rform" onSubmit={onSubmit} noValidate={false}>
+    <form className="rform" onSubmit={onSubmit}>
       <div className="rform-grid">
         {fields.map(f => {
           const id = `rf-${f.name}`
@@ -104,21 +122,38 @@ export default function RequestForm({ title, fields, submitLabel = 'WhatsApp ile
         })}
       </div>
       <div className="rform-actions">
-        <button type="submit" className="btn dark">
-          {submitLabel} <span>↗</span>
+        <button type="submit" className="btn dark" disabled={state.kind === 'sending'}>
+          {state.kind === 'sending' ? 'Gönderiliyor…' : submitLabel} <span>↗</span>
         </button>
-        <button type="button" className="btn ghost-dark" onClick={byMail}>
-          E-posta ile gönder
+        <button type="button" className="btn ghost-dark" onClick={byWhatsApp}>
+          WhatsApp ile gönder
         </button>
       </div>
       {note && <p className="rform-note">{note}</p>}
-      {sent && (
-        <div className="rform-sent" role="status">
-          <strong>{sent === 'wa' ? 'WhatsApp açıldı, mesajı göndermeniz yeterli.' : 'E-posta uygulamanız açıldı, göndermeniz yeterli.'}</strong>
-          <span>Açılmadıysa aşağıdaki metni kopyalayıp {sent === 'wa' ? 'WhatsApp’tan' : `${EMAIL} adresine`} iletebilirsiniz.</span>
-          <pre>{message}</pre>
-        </div>
-      )}
+      <div aria-live="polite">
+        {state.kind === 'sent' && (
+          <div className="rform-sent">
+            <strong>Talebiniz bize ulaştı, teşekkürler.</strong>
+            <span>Ekibimiz en kısa sürede sizinle iletişime geçecek.</span>
+          </div>
+        )}
+        {state.kind === 'wa' && (
+          <div className="rform-sent">
+            <strong>WhatsApp açıldı, mesajı göndermeniz yeterli.</strong>
+            <span>Açılmadıysa aşağıdaki metni kopyalayıp WhatsApp’tan iletebilirsiniz.</span>
+            <pre>{state.text}</pre>
+          </div>
+        )}
+        {state.kind === 'error' && (
+          <div className="rform-sent is-error">
+            <strong>Talebiniz şu an gönderilemedi.</strong>
+            <span>
+              Lütfen tekrar deneyin, “WhatsApp ile gönder”i kullanın ya da aşağıdaki metni <a href={`mailto:${EMAIL}`}>{EMAIL}</a> adresine iletin.
+            </span>
+            <pre>{state.text.replace(/\*/g, '')}</pre>
+          </div>
+        )}
+      </div>
     </form>
   )
 }

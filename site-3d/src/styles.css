@@ -2767,3 +2767,15 @@ html.menu-open {
     grid-column: 1 / -1;
   }
 }
+.rform-sent.is-error {
+  background: #fff4f1;
+  border-color: #f2d3ca;
+}
+.rform-sent a {
+  color: #2d5a94;
+  text-decoration: underline;
+}
+.rform-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}

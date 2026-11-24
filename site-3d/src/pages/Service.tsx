@@ -17,7 +17,7 @@ const FIELDS: Field[] = [
 ]
 
 const STEPS = [
-  { n: '01', t: 'Talebinizi iletin', d: 'Formu doldurun; mesaj WhatsApp’ta hazır açılır, göndermeniz yeterli.' },
+  { n: '01', t: 'Talebinizi iletin', d: 'Formu doldurun, talebiniz doğrudan ekibimize e-postayla ulaşır.' },
   { n: '02', t: 'Ekibimiz arar', d: 'Teknik ekibimiz sizi arayıp arızayı birlikte değerlendirir.' },
   { n: '03', t: '48 saatte müdahale', d: 'Bölgenizdeki uzman ekibimiz en geç 48 saat içinde işletmenizde olur.' },
 ]
