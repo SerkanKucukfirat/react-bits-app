@@ -242,10 +242,10 @@ export const featuredDevices = [
 
 export const brands = [
   { name: 'Playskin', image: `${UPLOADS}2026/10/Playsk%E2%94%80%E2%96%92n.png`, url: 'https://www.playskin.com.tr/' },
-  { name: 'Casmara', image: `${UPLOADS}2026/10/Casmara.png`, url: 'https://www.casmaratr.com/' },
-  { name: 'WishPro', image: `${UPLOADS}2026/10/Wishpro.png`, url: 'https://wishproturkiye.com/' },
   { name: 'Protocol Stria', image: `${UPLOADS}2026/10/Protokol-Stria.png`, url: 'https://protocolstria.com/' },
+  { name: 'Casmara', image: `${UPLOADS}2026/10/Casmara.png`, url: 'https://www.casmaratr.com/' },
   { name: 'Ericson Laboratoire', image: `${UPLOADS}2026/10/Ericson.png`, url: 'https://www.ericsonlaboratoireturkiye.com.tr/' },
+  { name: 'WishPro', image: `${UPLOADS}2026/10/Wishpro.png`, url: 'https://wishproturkiye.com/' },
 ]
 
 export const stats = [
@@ -256,7 +256,7 @@ export const stats = [
 ]
 
 export const ABOUT_TEXT =
-  'Slimwell Group, “İncelmede Devrim” misyonuyla sağlıklı zayıflama, yüksek kaliteli dermokozmetik ve güzellik ürün yelpazesiyle inovasyonun liderlerindendir. Casmara, Playskin, Protocol Stria, WishPro ve Ericson Laboratoire gibi seçkin markaları bünyesinde barındırır.'
+  'Slimwell Group, “İncelmede Devrim” misyonuyla sağlıklı zayıflama, yüksek kaliteli dermokozmetik ve güzellik ürün yelpazesiyle inovasyonun liderlerindendir. Playskin, Protocol Stria, Casmara, Ericson Laboratoire, WishPro ve Vacu Activ gibi seçkin markaları bünyesinde barındırır.'
 
 export const ABOUT_PAGE = [
   '2015 yılında İstanbul’da “İncelmede Devrim” vizyonuyla yolculuğuna başlayan Slimwell Group; bugün profesyonel güzellik, dermokozmetik, wellness ve cilt bakım teknolojilerinde yenilikçi çözümler sunan çok markalı, uluslararası bir organizasyondur.',

@@ -500,9 +500,9 @@ h2 {
 }
 .slide-tabs {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  gap: 12px;
-  width: min(92vw, 1100px);
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 10px;
+  width: min(94vw, 1240px);
   margin-top: clamp(18px, 3vh, 30px);
 }
 .slide-tabs button {
@@ -1022,7 +1022,7 @@ h2 {
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
   .slide-tabs {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -1072,6 +1072,7 @@ h2 {
   }
   .slide-tabs {
     width: calc(100vw - 32px);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px 12px;
   }
   .tab-label {
