@@ -1177,8 +1177,8 @@ h2 {
   top: -16px;
   height: 16px;
 }
-.nav-item:hover .nav-drop,
-.nav-item:focus-within .nav-drop {
+.nav-item:hover:not(.is-closed) .nav-drop,
+.nav-item:has(:focus-visible) .nav-drop {
   opacity: 1;
   visibility: visible;
   transform: none;

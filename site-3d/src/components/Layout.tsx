@@ -92,6 +92,16 @@ function Nav() {
     return () => st.kill()
   }, [])
 
+  // a chosen link closes its dropdown (and gives up focus, which Windows browsers keep on the link);
+  // the dropdown opens again the next time the pointer comes back
+  const closeDrop = (e: React.MouseEvent<HTMLDivElement>) => {
+    const a = (e.target as HTMLElement).closest('a')
+    if (!a) return
+    e.currentTarget.classList.add('is-closed')
+    a.blur()
+  }
+  const reopenDrop = (e: React.MouseEvent<HTMLDivElement>) => e.currentTarget.classList.remove('is-closed')
+
   return (
     <>
       <header ref={ref} className="nav">
@@ -99,7 +109,7 @@ function Nav() {
           <img src={LOGO} alt="Slimwell Group" />
         </Link>
         <nav className="nav-links" aria-label="Ana menü">
-          <div className="nav-item">
+          <div className="nav-item" onClick={closeDrop} onMouseLeave={reopenDrop}>
             <NavLink to="/cihazlar">Cihazlar</NavLink>
             <div className="nav-drop">
               <Link to="/cihazlar">Tüm cihazlar</Link>
@@ -111,7 +121,7 @@ function Nav() {
             </div>
           </div>
           <NavLink to="/markalar">Markalar</NavLink>
-          <div className="nav-item">
+          <div className="nav-item" onClick={closeDrop} onMouseLeave={reopenDrop}>
             <NavLink to="/hakkimizda" className={() => (corporatePages.some(p => p.to === pathname) ? 'active' : '')}>
               Kurumsal
             </NavLink>
