@@ -7,6 +7,7 @@ import {
   ADDRESS,
   CLASSIC,
   EMAIL,
+  HEOCADEMY_URL,
   LOGO,
   categories,
   corporatePages,
@@ -262,7 +263,9 @@ export function Footer() {
                 <Link to="/markalar">Markalar</Link>
               </li>
               <li>
-                <Link to="/heocademy">Heocademy</Link>
+                <a href={HEOCADEMY_URL} target="_blank" rel="noreferrer">
+                  Heocademy
+                </a>
               </li>
               {corporatePages.map(p => (
                 <li key={p.to}>

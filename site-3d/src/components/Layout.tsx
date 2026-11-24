@@ -3,7 +3,7 @@ import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { CLASSIC, LOGO, WHATSAPP, categories, corporatePages } from '../content'
+import { CLASSIC, HEOCADEMY_URL, LOGO, WHATSAPP, categories, corporatePages } from '../content'
 import { Footer } from './Sections'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -133,10 +133,10 @@ function Nav() {
               ))}
             </div>
           </div>
-          <NavLink to="/heocademy" className={({ isActive }) => `nav-academy ${isActive ? 'active' : ''}`}>
+          <a href={HEOCADEMY_URL} target="_blank" rel="noreferrer" className="nav-academy">
             <span className="nav-academy-dot" aria-hidden />
             Heocademy
-          </NavLink>
+          </a>
           <NavLink to="/iletisim">İletişim</NavLink>
         </nav>
         <div className="nav-actions">
@@ -165,7 +165,9 @@ function Nav() {
               {p.label}
             </Link>
           ))}
-          <Link to="/heocademy">Heocademy</Link>
+          <a href={HEOCADEMY_URL} target="_blank" rel="noreferrer">
+            Heocademy
+          </a>
           <Link to="/iletisim">İletişim</Link>
           <a className="btn light" href={WHATSAPP} target="_blank" rel="noreferrer">
             WhatsApp’tan yazın <span>↗</span>
