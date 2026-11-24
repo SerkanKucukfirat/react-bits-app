@@ -7,7 +7,7 @@ export const LOGO = `${UPLOADS}2023/10/slimwell-logo.png`
 export const WHATSAPP = 'https://wa.me/905300301283?text=Merhaba%20bilgi%20almak%20istiyorum'
 export const PHONE = '+90 216 369 1 369'
 export const PHONE_HREF = 'tel:+902163691369'
-export const EMAIL = 'info@slimwell.com'
+export const EMAIL = 'info@slimwell.com.tr'
 export const ADDRESS = 'İçerenköy Mah. Karaman Çiftlik Yolu Cad. Karakum Sokak No:2 Ataşehir / İstanbul'
 export const MAP_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent('Karakum Sokak No:2 İçerenköy Ataşehir İstanbul')}&z=16&output=embed`
 export const SERVICE_URL = 'https://www.sts.slimwell.tr/'
