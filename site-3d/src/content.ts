@@ -80,14 +80,6 @@ export const slides: Slide[] = [
     tone: '#6fb6ff',
   },
   {
-    image: `${CLASSIC}devices/vacuactiv-slide.jpg`,
-    eyebrow: 'Vakumlu yürüme bandı',
-    title: 'Vacu Activ',
-    tab: 'Vacu Activ',
-    text: 'Vakum, infrared ve aroma ile bölgesel incelme.',
-    tone: '#c9d6e6',
-  },
-  {
     image: `${UPLOADS}2026/10/Cryo.png`,
     eyebrow: 'Yeni · Cryo',
     title: 'Cryo Q One',
