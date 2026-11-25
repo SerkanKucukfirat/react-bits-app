@@ -3,6 +3,11 @@ import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
 import ParticleField from './ParticleField'
 
+// The eyebrow is shown in capitals with Turkish rules (i → İ); the brand name keeps its Latin I
+function brandLatin(text: string) {
+  return text.split(/(Slimwell)/).map((part, i) => (part === 'Slimwell' ? <span key={i} lang="en">{part}</span> : part))
+}
+
 type Props = {
   eyebrow: string
   title: string
@@ -46,7 +51,7 @@ export default function PageHero({ eyebrow, title, text, crumbs = [], children, 
           ))}
         </nav>
         <p className="eyebrow ph-fade">
-          <span className="dot" /> {eyebrow}
+          <span className="dot" /> <span>{brandLatin(eyebrow)}</span>
         </p>
         <h1 className="ph-title" aria-label={title}>
           {title.split(' ').map((w, i) => (

@@ -1035,19 +1035,35 @@ h2 {
   .nav-logo img {
     height: 20px;
   }
+  /* phones: no pinned screen; text, slider and tabs follow each other, so they can never overlap */
   .hero {
-    height: 170vh;
+    height: auto;
+  }
+  .hero-sticky {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 92px;
   }
   .hero-copy {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    padding-inline: var(--pad);
     grid-template-columns: 1fr;
-    top: 92px;
   }
   .hero-sub {
     max-width: none;
   }
   .stage {
+    position: relative;
+    inset: auto;
+    flex: 1;
     justify-content: center;
-    padding: 210px 0 24px;
+    padding: 28px 0 32px;
   }
   .unfold {
     width: calc(100vw - 32px);

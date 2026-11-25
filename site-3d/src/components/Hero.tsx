@@ -81,7 +81,10 @@ export default function Hero() {
 
         <div ref={copy} className="hero-copy">
           <p className="eyebrow hero-fade">
-            <span className="dot" /> Slimwell Group · 2015’ten bu yana
+            <span className="dot" />
+            <span>
+              <span lang="en">Slimwell Group</span> · 2015’ten bu yana
+            </span>
           </p>
           <h1 className="hero-title" aria-label="İncelmede Devrim">
             {['İncelmede', 'Devrim'].map((w, i) => (
