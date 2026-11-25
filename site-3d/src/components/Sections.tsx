@@ -286,7 +286,7 @@ export function Footer() {
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </p>
             <p>
-              <a href={CLASSIC}>Klasik siteye geç</a>
+              {!import.meta.env.VITE_LIVE && <a href={CLASSIC}>Klasik siteye geç</a>}
             </p>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const dist = path.resolve('dist/3d')
+const dist = path.resolve(process.env.LIVE === '1' ? 'dist' : 'dist/3d')
 const html = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 const data = fs.readFileSync('src/data.ts', 'utf8')
 const slugs = [...data.matchAll(/^\s+slug: '([a-z0-9-]+)',\n\s+name:/gm)].map(m => m[1])

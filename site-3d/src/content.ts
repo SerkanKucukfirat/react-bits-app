@@ -24,7 +24,7 @@ export {
   stats,
 } from '@shared/data'
 
-const UPLOADS = 'https://www.slimwell.com.tr/wp-content/uploads/'
+const UPLOADS = import.meta.env.BASE_URL.replace(/3d\/$/, '') + 'wp/'
 
 // Slimwell Group logosu (beyaz, saydam zemin): menü ve alt bilgide kullanılır
 export { default as LOGO } from './assets/slimwell-group-logo.png'

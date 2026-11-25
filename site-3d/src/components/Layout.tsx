@@ -172,9 +172,11 @@ function Nav() {
           <a className="btn light" href={WHATSAPP} target="_blank" rel="noreferrer">
             WhatsApp’tan yazın <span>↗</span>
           </a>
-          <a className="mobile-classic" href={CLASSIC}>
-            Klasik siteye geç
-          </a>
+          {!import.meta.env.VITE_LIVE && (
+            <a className="mobile-classic" href={CLASSIC}>
+              Klasik siteye geç
+            </a>
+          )}
         </div>
       </div>
     </>

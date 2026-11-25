@@ -24,10 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Özel alan adı (public/CNAME) varsa site kökten, yoksa /react-bits-app/ altından yayınlanır.
+      # public/CNAME varsa canlı site: 3D site alan adının kökünden yayınlanır (slimwell.com.tr).
+      # Yoksa önizleme: klasik site /react-bits-app/, 3D site /react-bits-app/3d/ altında.
       - run: |
-          if [ -f public/CNAME ]; then export BASE_PATH=/; else export BASE_PATH=/react-bits-app/; fi
-          npm run build
+          if [ -f public/CNAME ]; then npm run build:live; else BASE_PATH=/react-bits-app/ npm run build; fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

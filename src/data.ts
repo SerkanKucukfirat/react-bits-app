@@ -1,5 +1,6 @@
 // Content taken from the live site, https://www.slimwell.com.tr
-const UPLOADS = 'https://www.slimwell.com.tr/wp-content/uploads/'
+// Images and videos from the old WordPress site, kept in public/wp so the site works on its own
+const UPLOADS = import.meta.env.BASE_URL.replace(/3d\/$/, '') + 'wp/'
 // Device photos supplied by Slimwell, served from this site's public/devices (the 3D site lives in /3d/)
 const LOCAL_DEVICES = import.meta.env.BASE_URL.replace(/3d\/$/, '') + 'devices/'
 
@@ -241,7 +242,7 @@ export const featuredDevices = [
 ]
 
 export const brands = [
-  { name: 'Playskin', image: `${UPLOADS}2026/10/Playsk%E2%94%80%E2%96%92n.png`, url: 'https://www.playskin.com.tr/' },
+  { name: 'Playskin', image: `${UPLOADS}2026/10/Playskin.png`, url: 'https://www.playskin.com.tr/' },
   { name: 'Protocol Stria', image: `${UPLOADS}2026/10/Protokol-Stria.png`, url: 'https://protocolstria.com/' },
   { name: 'Casmara', image: `${UPLOADS}2026/10/Casmara.png`, url: 'https://www.casmaratr.com/' },
   { name: 'Ericson Laboratoire', image: `${UPLOADS}2026/10/Ericson.png`, url: 'https://www.ericsonlaboratoireturkiye.com.tr/' },

@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "build:3d": "tsc --noEmit -p site-3d && vite build --config site-3d/vite.config.ts && node scripts/prerender-3d.mjs",
-    "dev:3d": "vite --config site-3d/vite.config.ts"
+    "dev:3d": "vite --config site-3d/vite.config.ts",
+    "build:live": "tsc --noEmit -p site-3d && LIVE=1 vite build --config site-3d/vite.config.ts && LIVE=1 node scripts/prerender-3d.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
