@@ -37,10 +37,12 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const mobile = window.matchMedia('(max-width: 760px)').matches
       const scrub = { trigger: section.current, start: 'top top', end: 'bottom bottom', scrub: 0.6 }
+      // phones don't pin the hero, so the screen unfolds while it scrolls up into the middle of the view
+      const mobileScrub = { trigger: section.current, start: 'top top', endTrigger: stageRef.current, end: 'center 40%', scrub: 0.6 }
       gsap.fromTo(
         unfold.current,
-        { rotateX: mobile ? 14 : 26, scale: mobile ? 0.92 : 0.5 },
-        { rotateX: 0, scale: 1, ease: 'none', scrollTrigger: scrub },
+        { rotateX: mobile ? 24 : 26, scale: mobile ? 0.78 : 0.5 },
+        { rotateX: 0, scale: 1, ease: 'none', scrollTrigger: mobile ? mobileScrub : scrub },
       )
       if (!mobile) gsap.fromTo(stageRef.current, { y: 56 }, { y: 0, ease: 'none', scrollTrigger: { ...scrub } })
       gsap.to(copy.current, {
