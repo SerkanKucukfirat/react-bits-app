@@ -172,7 +172,8 @@ export default function Showroom() {
             ref={n => {
               items.current[i] = n
             }}
-            title={i === active ? `${dev.name} — açıklamaya git` : dev.name}
+            data-label={i === active ? `${dev.name} — açıklamayı gör ↗` : dev.name}
+            aria-label={i === active ? `${dev.name}, açıklamaya git` : dev.name}
           >
             <img src={dev.cutout} alt={dev.name} draggable={false} decoding="async" />
           </div>
