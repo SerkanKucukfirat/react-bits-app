@@ -31,3 +31,25 @@ for (const r of routes) {
 }
 fs.writeFileSync(path.join(dist, '404.html'), html)
 console.log(`prerendered ${routes.length} routes (${slugs.length} devices, ${posts.length} posts)`)
+
+// Live site only: addresses of the old WordPress site (still in Google) forward to their new pages.
+// GitHub Pages cannot send real 301s, so each old path gets a tiny page that redirects at once.
+if (process.env.LIVE === '1') {
+  const map = JSON.parse(fs.readFileSync('scripts/old-urls.json', 'utf8'))
+  let n = 0
+  for (const [from, to] of Object.entries(map)) {
+    const file = path.join(dist, from, 'index.html')
+    if (fs.existsSync(file)) continue // a real page of the new site lives here
+    fs.mkdirSync(path.dirname(file), { recursive: true })
+    fs.writeFileSync(
+      file,
+      `<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Slimwell Group</title>` +
+        `<link rel="canonical" href="${to}"><meta name="robots" content="noindex">` +
+        `<meta http-equiv="refresh" content="0; url=${to}">` +
+        `<script>location.replace(${JSON.stringify(to)} + location.hash)</script></head>` +
+        `<body><a href="${to}">Sayfa taşındı, devam etmek için tıklayın</a></body></html>\n`,
+    )
+    n++
+  }
+  console.log(`old-site redirects: ${n}`)
+}
